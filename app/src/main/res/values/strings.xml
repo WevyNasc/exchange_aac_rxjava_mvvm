@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Exchange</string>
+    <string name="exchange_title">Exchange</string>
+    <string name="exchange_execute">execute</string>
+    <string name="exchange_error">Error to loading exchange</string>
+</resources>
