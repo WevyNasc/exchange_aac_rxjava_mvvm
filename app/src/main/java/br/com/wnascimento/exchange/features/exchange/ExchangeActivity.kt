@@ -4,7 +4,7 @@ import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
-import android.view.View.GONE
+import android.view.View.INVISIBLE
 import android.view.View.VISIBLE
 import br.com.wnascimento.exchange.R
 import dagger.android.AndroidInjection
@@ -15,7 +15,6 @@ class ExchangeActivity : AppCompatActivity() {
 
     @Inject
     lateinit var viewModel: ExchangeViewModel
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,7 +60,7 @@ class ExchangeActivity : AppCompatActivity() {
     }
 
     private fun hideResult() {
-        result.visibility = GONE
+        result.visibility = INVISIBLE
     }
 
     private fun showLoading() {

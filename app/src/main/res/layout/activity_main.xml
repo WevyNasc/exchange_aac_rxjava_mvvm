@@ -66,9 +66,10 @@
     <Button
         android:id="@+id/execute"
         android:layout_width="0dp"
-        style="@style/Base.Widget.AppCompat.Button.Borderless"
+        android:layout_margin="20dp"
+        style="@style/Base.Widget.AppCompat.Button.Colored"
         android:text="@string/exchange_execute"
-        android:layout_height="40dp"
+        android:layout_height="50dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"/>
