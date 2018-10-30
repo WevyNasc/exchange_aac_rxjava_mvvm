@@ -9,6 +9,6 @@ import dagger.android.ContributesAndroidInjector
 abstract class BindActivities {
 
     @ContributesAndroidInjector(modules = [ExchangeModule::class])
-    @PerActivity
+    @ActivityScope
     abstract fun bindMainActivity(): ExchangeActivity
 }

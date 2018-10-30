@@ -1,12 +1,13 @@
 package br.com.wnascimento.exchange.features.exchange
 
+import android.arch.lifecycle.Observer
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import br.com.wnascimento.exchange.R
 import dagger.android.AndroidInjection
-import io.reactivex.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.activity_main.*
 import javax.inject.Inject
 
@@ -15,7 +16,6 @@ class ExchangeActivity : AppCompatActivity() {
     @Inject
     lateinit var viewModel: ExchangeViewModel
 
-    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,24 +27,16 @@ class ExchangeActivity : AppCompatActivity() {
         }
 
         observeExchange()
-
     }
 
     private fun observeExchange() {
-        compositeDisposable.add(viewModel
-            .exchangeState
-            .subscribe {
-                when (it) {
-                    is ExchangeState.Success -> onSuccessExchange(it.result)
-                    is ExchangeState.Loading -> onLoading()
-                    is ExchangeState.Error -> onErrorExchange()
-                }
-            })
-    }
-
-    override fun onDestroy() {
-        compositeDisposable.dispose()
-        super.onDestroy()
+        viewModel.exchange.observe(this, Observer {
+            when (it) {
+                is ExchangeState.Success -> onSuccessExchange(it.result)
+                is ExchangeState.Loading -> onLoading()
+                is ExchangeState.Error -> onErrorExchange()
+            }
+        })
     }
 
     private fun onErrorExchange() {
@@ -69,7 +61,7 @@ class ExchangeActivity : AppCompatActivity() {
     }
 
     private fun hideResult() {
-        result.visibility = VISIBLE
+        result.visibility = GONE
     }
 
     private fun showLoading() {

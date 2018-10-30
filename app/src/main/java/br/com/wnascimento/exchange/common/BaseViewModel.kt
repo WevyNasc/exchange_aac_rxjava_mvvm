@@ -1,9 +1,10 @@
 package br.com.wnascimento.exchange.common
 
+import android.arch.lifecycle.ViewModel
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.disposables.Disposable
 
-abstract class BaseViewModel {
+abstract class BaseViewModel: ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -11,8 +12,9 @@ abstract class BaseViewModel {
         compositeDisposable.add(block.invoke())
     }
 
-    fun unregisterSubscribers() {
+    override fun onCleared() {
         compositeDisposable.clear()
+        super.onCleared()
     }
 
 }

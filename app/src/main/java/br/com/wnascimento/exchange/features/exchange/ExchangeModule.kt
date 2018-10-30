@@ -1,6 +1,9 @@
 package br.com.wnascimento.exchange.features.exchange
 
-import br.com.wnascimento.exchange.di.PerActivity
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
+import android.arch.lifecycle.ViewModelProviders
+import br.com.wnascimento.exchange.di.ActivityScope
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
@@ -10,14 +13,30 @@ object ExchangeModule {
 
     @JvmStatic
     @Provides
-    @PerActivity
-    fun provideExchangeApi(retrofit: Retrofit) : ExchangeApi =
+    @ActivityScope
+    fun provideExchangeApi(retrofit: Retrofit): ExchangeApi =
         retrofit.create(ExchangeApi::class.java)
 
     @JvmStatic
     @Provides
-    @PerActivity
-    fun provideExchangeRepository(exchangeApi: ExchangeApi) : ExchangeRepositoryInterface =
+    @ActivityScope
+    fun provideExchangeRepository(exchangeApi: ExchangeApi): ExchangeRepositoryInterface =
         ExchangeRepository(exchangeApi)
+
+    @JvmStatic
+    @Provides
+    @ActivityScope
+    fun provideExchangeViewModel(
+        exchangeActivity: ExchangeActivity,
+        getExchangeUseCase: GetExchangeUseCase
+    ): ExchangeViewModel {
+        return ViewModelProviders.of(exchangeActivity, object : ViewModelProvider.Factory {
+
+            override fun <T : ViewModel> create(modelClass: Class<T>): T {
+                return ExchangeViewModel(getExchangeUseCase) as T
+            }
+
+        })[ExchangeViewModel::class.java]
+    }
 
 }

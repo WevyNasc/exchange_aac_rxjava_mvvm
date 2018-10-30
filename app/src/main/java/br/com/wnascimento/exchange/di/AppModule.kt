@@ -1,6 +1,7 @@
 package br.com.wnascimento.exchange.di
 
 import br.com.wnascimento.exchange.common.SchedulerManager
+import br.com.wnascimento.exchange.common.SchedulerManagerInterface
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import dagger.Module
@@ -35,7 +36,7 @@ abstract class AppModule {
         @JvmStatic
         @Provides
         @Singleton
-        fun provideSchedulerManager(): SchedulerManager {
+        fun provideSchedulerManager(): SchedulerManagerInterface {
             return SchedulerManager()
         }
     }
