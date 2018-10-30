@@ -1,13 +1,13 @@
 package br.com.wnascimento.exchange.features.exchange
 
-import br.com.wnascimento.exchange.common.SchedulerManager
+import br.com.wnascimento.exchange.common.SchedulerManagerInterface
 import br.com.wnascimento.exchange.common.UserCase
 import io.reactivex.Single
 import javax.inject.Inject
 
 class GetExchangeUseCase @Inject constructor(
     private val exchangeRepository: ExchangeRepositoryInterface,
-    private val schedulerManager: SchedulerManager
+    private val schedulerManager: SchedulerManagerInterface
 ) : UserCase<Params, Single<Double>> {
     override fun execute(params: Params): Single<Double> {
         return exchangeRepository

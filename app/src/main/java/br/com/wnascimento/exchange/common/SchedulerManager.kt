@@ -4,13 +4,18 @@ import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class SchedulerManager {
+class SchedulerManager: SchedulerManagerInterface {
 
-    fun io(): Scheduler {
+    override fun io(): Scheduler {
         return Schedulers.io()
     }
 
-    fun ui(): Scheduler {
+    override fun ui(): Scheduler {
         return AndroidSchedulers.mainThread()
     }
+}
+
+interface SchedulerManagerInterface {
+    fun io(): Scheduler
+    fun ui(): Scheduler
 }
